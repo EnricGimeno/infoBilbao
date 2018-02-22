@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="avisos_de_agua_y_suministros">"http://www.bilbao.eus/cs/Satellite?language=es%26pageid=3000075248%26pagename=Bilbaonet/Page/BIO_suscripcionRSS%26tipoSus=Avisos%26idSec=3000014008"</string>
+    <string name="avisos_de_bilbao">""</string>
+    <string name="avisos_de_temas_varios">""</string>
+    <string name="avisos_de_trafico_y_transportes">""</string>
+    <string name="avisos_del_distrito_1_deusto">""</string>
+    <string name="avisos_del_distrito_2_uribarri">""</string>
+    <string name="avisos_del_distrito_3_otxarkoaga_txurdinaga">""</string>
+    <string name="avisos_del_distrito_4_begoña">""</string>
+    <string name="avisos_del_distrito_5_ibaiondo">""</string>
+    <string name="avisos_del_distrito_6_abando">""</string>
+    <string name="avisos_del_distrito_7_rekalde">""</string>
+    <string name="avisos_del_distrito_8_basurto_zorroza">""</string>
+    <string name="noticias_de_bilbao">""</string>
+    <string name="noticias_de_temas_de_aparcamientos">""</string>
+    <string name="noticias_de_temas_de_deporte">""</string>
+    <string name="noticias_de_temas_de_economia_y_hacienda">""</string>
+    <string name="noticias_de_temas_de_educacion">""</string>
+    <string name="noticias_de_temas_de_empleo">""</string>
+    <string name="noticias_de_temas_de_infancia">""</string>
+    <string name="noticias_de_temas_de_juventud">""</string>
+    <string name="noticias_de_temas_de_medio_ambiente">""</string>
+    <string name="noticias_de_temas_de_obras_y_servicios">""</string>
+    <string name="noticias_de_temas_de_ocio_y_cultura">""</string>
+    <string name="noticias_de_temas_de_recursos_humanos">""</string>
+</resources>
