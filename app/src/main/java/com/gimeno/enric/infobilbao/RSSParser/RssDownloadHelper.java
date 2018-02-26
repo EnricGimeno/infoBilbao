@@ -25,7 +25,7 @@ public class RssDownloadHelper {
             // Creamos el Handler
             RssHandler rssHandler = new RssHandler(contentResolver);
 
-            // Definimos el manejador l�xico
+            // Definimos el manejador lexico
             saxParser
                     .setProperty(
                             "http://xml.org/sax/properties/lexical-handler",

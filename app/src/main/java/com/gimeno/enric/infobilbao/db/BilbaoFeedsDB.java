@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
 public class BilbaoFeedsDB {
 
     //Nombre de la base de datos
-    public static final String DB_NAME = "BilbaoRSS.db";
+    public static final String DB_NAME = "BilbaoAlertsRSS.db";
     //Version de la base de datos
     public  static final int DB_VERSION = 1;
 
@@ -27,9 +27,9 @@ public class BilbaoFeedsDB {
 
         public static final String NOMBRE_TABLA = "bilbao_feeds";
 
-        public static final String CAMPO_TITLE = "title";
         public static final String CAMPO_GUID = "guid";
-        public static final String CAMPO_PUB_DATE = "pubDate";
+        public static final String CAMPO_TITLE = "title";
+        public static final String CAMPO_PUB_DATE = "pubDateFA";
         public static final String CAMPO_URL_LINK = "link";
         public static final String CAMPO_DESCRIPTION = "description";
         public static final String CAMPO_CLASE_FEED = "clase_de_rss";

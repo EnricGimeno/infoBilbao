@@ -5,14 +5,14 @@ import android.content.ContentValues;
 import android.net.Uri;
 import android.util.Log;
 
+import com.gimeno.enric.infobilbao.db.BilbaoFeedsDB;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.Date;
-
-import es.masterd.rss.db.FeedsDB;
 
 public class RssHandler extends DefaultHandler implements LexicalHandler {
 	// Donde iremos guardando los datos del registro a guardar
@@ -22,9 +22,7 @@ public class RssHandler extends DefaultHandler implements LexicalHandler {
 	private boolean in_item = false;
 	private boolean in_title = false;
 	private boolean in_link = false;
-	private boolean in_comments = false;
 	private boolean in_pubDate = false;
-	private boolean in_dcCreator = false;
 	private boolean in_description = false;
 
 	private boolean in_CDATA;
@@ -42,7 +40,7 @@ public class RssHandler extends DefaultHandler implements LexicalHandler {
 		this.contentProv = contentResolver;
 	}
 
-	/** M�todos sobreescritos ********************************/
+	/** Metodos sobreescritos ********************************/
 
 	/**
 	 * Se llama cuando se abre un tag: <tag> Puede recibir atributos cuando el
@@ -52,6 +50,7 @@ public class RssHandler extends DefaultHandler implements LexicalHandler {
 	@Override
 	public void startElement(String namespaceURI, String localName,
                              String qName, Attributes atts) throws SAXException {
+        Log.i("ENRIC TAG", "START ELEMENT");
 		// Nos vamos a centrar solo en los items
 		if (localName.equalsIgnoreCase("item")) {
 			in_item = true;
@@ -60,12 +59,8 @@ public class RssHandler extends DefaultHandler implements LexicalHandler {
 			in_title = true;
 		} else if (localName.equalsIgnoreCase("link")) {
 			in_link = true;
-		} else if (localName.equalsIgnoreCase("comments")) {
-			in_comments = true;
 		} else if (localName.equalsIgnoreCase("pubDate")) {
 			in_pubDate = true;
-		} else if (localName.equalsIgnoreCase("dc:creator")) {
-			in_dcCreator = true;
 		} else if (localName.equalsIgnoreCase("description")) {
 			in_description = true;
 		}
@@ -90,12 +85,8 @@ public class RssHandler extends DefaultHandler implements LexicalHandler {
 			in_title = false;
 		} else if (localName.equalsIgnoreCase("link")) {
 			in_link = false;
-		} else if (localName.equalsIgnoreCase("comments")) {
-			in_comments = false;
 		} else if (localName.equalsIgnoreCase("pubDate")) {
 			in_pubDate = false;
-		} else if (localName.equalsIgnoreCase("dc:creator")) {
-			in_dcCreator = false;
 		} else if (localName.equalsIgnoreCase("description")) {
 			in_description = false;
 		}
@@ -106,42 +97,43 @@ public class RssHandler extends DefaultHandler implements LexicalHandler {
 	 */
 	@Override
 	public void characters(char ch[], int start, int length) {
+
+	}
+
+	/*El método characters se llama cuando se tiene el contenido de un tag completo.
+	Nosotros lo usaremos para introducir el valor en el registro. Para saber en qué
+	campo estamos, usaremos los indicadores booleanos. */
+	/**
+	 * Se llama cuando estamos dentro de un tag: <tag>characters</tag>
+	 */
+	@Override
+	public void comment(char[] ch, int start, int length) throws SAXException {
+		Log.i("ENRIC TAG", "TAG");
 		if (in_item) { // Estamos dentro de un item
 			if (in_title) {
-				rssItem.put(FeedsDB.Posts.TITLE, new String(ch, start, length));
+				Log.i("ENRIC TAG", "TAG");
+				rssItem.put(BilbaoFeedsDB.Posts.CAMPO_TITLE, new String(ch, start, length));
 			} else if (in_link) {
-				rssItem.put(FeedsDB.Posts.LINK, new String(ch, start, length));
+				rssItem.put(BilbaoFeedsDB.Posts.CAMPO_URL_LINK, new String(ch, start, length));
 			} else if (in_description) {
-				if (rssItem.get(FeedsDB.Posts.DESCRIPTION) == null) {
-					rssItem.put(FeedsDB.Posts.DESCRIPTION, new String(ch,
+				if (rssItem.get(BilbaoFeedsDB.Posts.CAMPO_DESCRIPTION) == null) {
+					rssItem.put(BilbaoFeedsDB.Posts.CAMPO_DESCRIPTION, new String(ch,
 							start, ch.length));
-				} else if (rssItem.getAsString(FeedsDB.Posts.DESCRIPTION)
+				} else if (rssItem.getAsString(BilbaoFeedsDB.Posts.CAMPO_DESCRIPTION)
 						.length() < ch.length) {
-					rssItem.put(FeedsDB.Posts.DESCRIPTION, new String(ch,
+					rssItem.put(BilbaoFeedsDB.Posts.CAMPO_DESCRIPTION, new String(ch,
 							start, ch.length));
 				}
 			} else if (in_pubDate) {
 				String strDate = new String(ch, start, length);
 				try {
 					long fecha = Date.parse(strDate);
-					rssItem.put(FeedsDB.Posts.PUB_DATE, fecha);
+					rssItem.put(BilbaoFeedsDB.Posts.CAMPO_PUB_DATE, fecha);
 				} catch (Exception e) {
 					Log.d("RssHandler", "Error al parsear la fecha");
 				}
 			}
-
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.xml.sax.ext.LexicalHandler#comment(char[], int, int)
-	 */
-	@Override
-	public void comment(char[] ch, int start, int length) throws SAXException {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*

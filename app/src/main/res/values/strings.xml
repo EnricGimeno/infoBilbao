@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">InfoBilbao</string>
     <string name="action_settings">Settings</string>
+    <string name="action_quit">Quit</string>
+    <string name="no_hay_feeds">No hay alertas.</string>
+    <string name="titulo_alerta">TITULO ALERTA</string>
 </resources>

@@ -36,7 +36,7 @@ public class BilbaoFeedsSQLProvider extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         // Cuando haya cambios en la estuctura deberemos incluir el codigo
         // SQL necesario para actualizar la base de datos
-        // tendremos en cuenta la versin antigua y la nueva para aplicar solo
+        // tendremos en cuenta la version antigua y la nueva para aplicar solo
         // los necesarios
     }
 }
